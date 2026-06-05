@@ -2,6 +2,18 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
+  <script>
+    /* GitHub Pages 프로젝트 사이트 경로 보정 (username.github.io/저장소명/) */
+    (function () {
+      var path = location.pathname;
+      if (/\.[^/]+$/.test(path)) {
+        path = path.slice(0, path.lastIndexOf('/') + 1);
+      } else if (!path.endsWith('/')) {
+        path += '/';
+      }
+      document.write('<base href="' + path + '">');
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>에이텍모빌리티 | 자동화 플랫폼 전문기업</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
