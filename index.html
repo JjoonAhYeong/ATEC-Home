@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>에이텍모빌리티 | 자동화 플랫폼 전문기업</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg-deep: #f6f7f9;
+      --bg-card: #ffffff;
+      --brand: #c7005f;
+      --brand-dark: #a0004d;
+      --brand-soft: #fdf2f7;
+      --brand-glow: rgba(199, 0, 95, 0.15);
+      --text-primary: #1a1a1a;
+      --text-secondary: #4a5568;
+      --text-muted: #718096;
+      --border: #e8ecf0;
+      --shadow-sm: 0 1px 3px rgba(26, 26, 26, 0.06);
+      --shadow-md: 0 8px 24px rgba(26, 26, 26, 0.08);
+      --shadow-lg: 0 16px 40px rgba(26, 26, 26, 0.1);
+      --gradient: linear-gradient(135deg, #c7005f 0%, #e8347a 100%);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 0.875rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .header-logo img {
+      height: 38px;
+      width: auto;
+      display: block;
+    }
+
+    nav a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      margin-left: 1.75rem;
+      transition: color 0.2s;
+    }
+
+    nav a:hover {
+      color: var(--brand);
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+    }
+
+    section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .section-label {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--brand);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+      color: var(--text-primary);
+    }
+
+    .section-desc {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin-bottom: 2.5rem;
+      word-break: keep-all;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.95);
+      border-radius: 1.25rem;
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      max-width: none;
+      padding: 6rem 2rem 4rem;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('assets/office.png') center 30% / cover no-repeat;
+      z-index: 0;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(105deg, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0.75) 38%, rgba(255, 255, 255, 0.25) 100%),
+        linear-gradient(180deg, rgba(246, 247, 249, 0.1) 0%, rgba(246, 247, 249, 0.85) 100%);
+      z-index: 1;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .hero-content {
+      max-width: 520px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 1rem;
+      border-radius: 999px;
+      border: 1px solid rgba(199, 0, 95, 0.2);
+      background: var(--brand-soft);
+      font-size: 0.8125rem;
+      color: var(--brand);
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards;
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--brand);
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 4.5vw, 3.25rem);
+      font-weight: 700;
+      line-height: 1.3;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.25rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.15s forwards;
+    }
+
+    .hero h1 .highlight {
+      color: var(--brand);
+    }
+
+    .hero-desc {
+      font-size: clamp(1rem, 2vw, 1.125rem);
+      color: var(--text-secondary);
+      font-weight: 400;
+      word-break: keep-all;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.3s forwards;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.6s forwards;
+    }
+
+    .scroll-indicator .arrow {
+      width: 18px;
+      height: 18px;
+      border-right: 2px solid var(--text-muted);
+      border-bottom: 2px solid var(--text-muted);
+      transform: rotate(45deg);
+      animation: bounce 2s infinite;
+    }
+
+    /* Vision */
+    .vision {
+      padding: 6rem 2rem;
+    }
+
+    .vision-card {
+      padding: clamp(2rem, 5vw, 3rem);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .vision-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--gradient);
+    }
+
+    .vision-card p {
+      font-size: clamp(1.0625rem, 2.5vw, 1.25rem);
+      color: var(--text-secondary);
+      font-weight: 400;
+      line-height: 2;
+      word-break: keep-all;
+      text-wrap: pretty;
+    }
+
+    .vision-card p strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    /* Business */
+    .business {
+      padding: 2rem 2rem 6rem;
+    }
+
+    .business-showcase {
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border);
+    }
+
+    .business-showcase img {
+      width: 100%;
+      height: auto;
+      display: block;
+      vertical-align: middle;
+    }
+
+    .business-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-top: 2rem;
+    }
+
+    .business-card {
+      padding: 1.5rem;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .business-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .business-card-icon {
+      width: 52px;
+      height: 52px;
+      margin: 0 auto 1rem;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .business-card-icon--bus { background: #fef3c7; }
+    .business-card-icon--taxi { background: #ffedd5; }
+    .business-card-icon--metro { background: #dbeafe; }
+
+    .business-card-icon svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    .business-card h3 {
+      font-size: 1.125rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--brand);
+      margin-bottom: 0.5rem;
+    }
+
+    .business-card p {
+      font-size: 0.9375rem;
+      color: var(--text-secondary);
+      word-break: keep-all;
+    }
+
+    /* Brand */
+    .brand {
+      padding: 2rem 2rem 6rem;
+      text-align: center;
+    }
+
+    .brand-title-wrap {
+      display: inline-block;
+      padding: 2rem 3rem;
+    }
+
+    .brand-title {
+      font-size: clamp(1.375rem, 3vw, 2rem);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .brand-title em {
+      font-style: normal;
+      color: var(--brand);
+    }
+
+    .brand-divider {
+      width: 48px;
+      height: 3px;
+      background: var(--gradient);
+      border-radius: 2px;
+      margin: 0 auto;
+    }
+
+    /* Commitment */
+    .commitment {
+      padding-bottom: 6rem;
+    }
+
+    .commitment-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .commitment-item {
+      padding: 2rem;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .commitment-item:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .commitment-top {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .commitment-icon {
+      flex-shrink: 0;
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .commitment-icon--01 { background: #fef3c7; }
+    .commitment-icon--02 { background: #fce7f3; }
+    .commitment-icon--03 { background: #ede9fe; }
+
+    .commitment-icon svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    .commitment-number {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--brand);
+      line-height: 1;
+    }
+
+    .commitment-item p {
+      font-size: 1.0625rem;
+      color: var(--text-secondary);
+    }
+
+    .commitment-item p em {
+      color: var(--text-primary);
+      font-style: normal;
+      font-weight: 600;
+    }
+
+    .commitment-final {
+      text-align: center;
+      padding: 2.5rem;
+    }
+
+    .commitment-final p {
+      font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+    }
+
+    /* Office */
+    .office {
+      max-width: none;
+      padding: 0 0 6rem;
+    }
+
+    .office-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .office-visual {
+      position: relative;
+      border-radius: 1.25rem;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      height: clamp(280px, 40vw, 420px);
+    }
+
+    .office-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 25%;
+      display: block;
+    }
+
+    .office-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 2rem 2.5rem;
+      background: linear-gradient(transparent, rgba(26, 26, 26, 0.75));
+      color: #fff;
+    }
+
+    .office-caption h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+    }
+
+    .office-caption p {
+      font-size: 0.9375rem;
+      opacity: 0.9;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 2rem;
+      text-align: center;
+      background: var(--bg-card);
+    }
+
+    footer .footer-logo img {
+      height: 32px;
+      width: auto;
+      margin-bottom: 0.75rem;
+    }
+
+    footer p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: rotate(45deg) translateY(0); }
+      50% { transform: rotate(45deg) translateY(6px); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 768px) {
+      nav a {
+        margin-left: 1rem;
+        font-size: 0.8125rem;
+      }
+
+      .business-cards {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      header {
+        padding: 0.75rem 1.25rem;
+      }
+
+      .header-logo img {
+        height: 30px;
+      }
+
+      nav {
+        display: none;
+      }
+
+      section,
+      .hero,
+      .office-inner {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+      }
+
+      .hero {
+        padding-top: 5rem;
+      }
+
+      .brand-title-wrap {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#" class="header-logo">
+      <img src="assets/logo.png" alt="ATEC 에이텍모빌리티">
+    </a>
+    <nav>
+      <a href="#vision">비전</a>
+      <a href="#business">사업분야</a>
+      <a href="#brand">브랜드</a>
+      <a href="#commitment">약속</a>
+      <a href="#office">회사소개</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="hero-overlay" aria-hidden="true"></div>
+      <div class="hero-inner">
+        <div class="hero-content">
+          <div class="hero-badge">Automation Platform Specialist</div>
+          <h1>
+            에이텍은<br>
+            <span class="highlight">항상 새로움</span>을 추구합니다.
+          </h1>
+          <p class="hero-desc">
+            지속적인 기술개발과 혁신으로 자동화 플랫폼 분야의 선두에 서겠습니다.
+          </p>
+        </div>
+      </div>
+      <div class="scroll-indicator">
+        <span>Scroll</span>
+        <div class="arrow"></div>
+      </div>
+    </section>
+
+    <section class="vision" id="vision">
+      <div class="reveal">
+        <p class="section-label">Vision</p>
+        <h2 class="section-title">비전</h2>
+        <div class="vision-card glass-card">
+          <p>
+            에이텍은 <strong>지속적인 기술개발과 혁신</strong>으로<br>
+            자동화 플랫폼 분야에서 최고의 제품과 서비스를 창출함으로써,<br>
+            고객에게 <strong>최고의 가치</strong>를 제공합니다.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="business" id="business">
+      <div class="reveal">
+        <p class="section-label">Business</p>
+        <h2 class="section-title">교통카드 솔루션 사업</h2>
+        <p class="section-desc">
+          버스, 택시, 지하철 등 다양한 교통 환경에 최적화된 카드 결제 솔루션을 제공합니다.
+        </p>
+        <div class="business-showcase">
+          <img src="assets/business.png" alt="ATEC 교통카드 솔루션 사업 - BUS, TAXI, METRO">
+        </div>
+        <div class="business-cards">
+          <div class="business-card glass-card">
+            <div class="business-card-icon business-card-icon--bus" aria-hidden="true">
+              <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="3" y="7" width="22" height="14" rx="3" fill="#F59E0B"/>
+                <rect x="5" y="9" width="7" height="5" rx="1" fill="#FEF3C7"/>
+                <rect x="16" y="9" width="7" height="5" rx="1" fill="#FEF3C7"/>
+                <circle cx="8" cy="22" r="2.5" fill="#92400E"/>
+                <circle cx="20" cy="22" r="2.5" fill="#92400E"/>
+              </svg>
+            </div>
+            <h3>BUS</h3>
+            <p>버스 단말기 및 교통카드 결제 시스템</p>
+          </div>
+          <div class="business-card glass-card">
+            <div class="business-card-icon business-card-icon--taxi" aria-hidden="true">
+              <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 18h20l-2-8H6l-2 8z" fill="#F97316"/>
+                <rect x="10" y="6" width="8" height="4" rx="1" fill="#FDBA74"/>
+                <rect x="12" y="10" width="4" height="3" fill="#FEF3C7"/>
+                <circle cx="8" cy="20" r="2.5" fill="#92400E"/>
+                <circle cx="20" cy="20" r="2.5" fill="#92400E"/>
+              </svg>
+            </div>
+            <h3>TAXI</h3>
+            <p>택시 무선 단말기 및 카드 결제 서비스</p>
+          </div>
+          <div class="business-card glass-card">
+            <div class="business-card-icon business-card-icon--metro" aria-hidden="true">
+              <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="5" y="8" width="18" height="12" rx="4" fill="#3B82F6"/>
+                <rect x="8" y="11" width="5" height="4" rx="1" fill="#DBEAFE"/>
+                <rect x="15" y="11" width="5" height="4" rx="1" fill="#DBEAFE"/>
+                <path d="M5 14H23" stroke="#1D4ED8" stroke-width="1.5"/>
+                <circle cx="9" cy="22" r="2" fill="#1E3A8A"/>
+                <circle cx="19" cy="22" r="2" fill="#1E3A8A"/>
+              </svg>
+            </div>
+            <h3>METRO</h3>
+            <p>지하철 개집표기 및 교통카드 연동</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="brand" id="brand">
+      <div class="reveal">
+        <div class="brand-title-wrap glass-card">
+          <h2 class="brand-title"><em>자동화 플랫폼 전문기업</em>의 새로운 이름</h2>
+          <div class="brand-divider"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="commitment" id="commitment">
+      <div class="reveal">
+        <p class="section-label" style="text-align: center;">Our Commitment</p>
+        <h2 class="section-title" style="text-align: center; margin-bottom: 2.5rem;">고객과의 약속</h2>
+        <div class="commitment-grid">
+          <div class="commitment-item glass-card">
+            <div class="commitment-top">
+              <div class="commitment-icon commitment-icon--01" aria-hidden="true">
+                <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="16" cy="16" r="14" fill="#FBBF24"/>
+                  <circle cx="11.5" cy="13" r="2" fill="#92400E"/>
+                  <circle cx="20.5" cy="13" r="2" fill="#92400E"/>
+                  <path d="M11 20.5c1.8 2.2 7.2 2.2 9 0" stroke="#92400E" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <span class="commitment-number">01</span>
+            </div>
+            <p><em>고객이 만족할 때까지</em>,<br>최선을 다하겠습니다.</p>
+          </div>
+          <div class="commitment-item glass-card">
+            <div class="commitment-top">
+              <div class="commitment-icon commitment-icon--02" aria-hidden="true">
+                <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M16 3L27 8v8c0 7.2-4.9 13.9-11 15.5C9.9 29.9 5 23.2 5 16V8l11-5z" fill="#C7005F"/>
+                  <path d="M12 16.5l3 3 6-6.5" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <span class="commitment-number">02</span>
+            </div>
+            <p><em>제품 수명이 다할 때까지</em>,<br>함께하겠습니다.</p>
+          </div>
+          <div class="commitment-item glass-card">
+            <div class="commitment-top">
+              <div class="commitment-icon commitment-icon--03" aria-hidden="true">
+                <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="4" y="18" width="6" height="10" rx="1.5" fill="#A78BFA"/>
+                  <rect x="13" y="12" width="6" height="16" rx="1.5" fill="#7C3AED"/>
+                  <rect x="22" y="6" width="6" height="22" rx="1.5" fill="#6D28D9"/>
+                  <path d="M4 28h24" stroke="#C4B5FD" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M22 6l3-2 3 2" stroke="#FBBF24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <span class="commitment-number">03</span>
+            </div>
+            <p><em>고객이 원하는 가치를 창출할 때까지</em>,<br>끊임없이 노력하겠습니다.</p>
+          </div>
+        </div>
+        <div class="commitment-final glass-card">
+          <p>언제나 책임을 다하겠습니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="office" id="office">
+      <div class="office-inner reveal">
+        <p class="section-label">Company</p>
+        <h2 class="section-title">에이텍 사옥</h2>
+        <p class="section-desc">혁신과 기술개발의 중심, 에이텍 본사입니다.</p>
+        <div class="office-visual">
+          <img src="assets/office.png" alt="에이텍 사옥 전경">
+          <div class="office-caption">
+            <h3>ATEC Headquarters</h3>
+            <p>자동화 플랫폼 전문기업 에이텍모빌리티</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-logo">
+      <img src="assets/logo.png" alt="ATEC 에이텍모빌리티">
+    </div>
+    <p>자동화 플랫폼 전문기업 &copy; 2026 ATEC Mobility</p>
+  </footer>
+
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+    reveals.forEach((el) => observer.observe(el));
+  </script>
+</body>
+</html>
